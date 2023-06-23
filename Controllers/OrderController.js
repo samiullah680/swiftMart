@@ -121,15 +121,15 @@ const OrderControllerDeleteOrder = async (req, res) => {
 };
 
 const OrderControllerGetOrder = async (req, res) => {
-  let count = req.query.count;
-  let activePage = req.query.activePage - 1;
+  let count = req.body.count;
+  let activePage = req.body.activePage - 1;
   try {
     const filter = {
       _id: req.query.orderId,
-      "customerDetails.id": req.query.customerId,
-      "productDetails.user_id": req.query.adminId,
-      "productDetails.title": req.query.title,
-      "customerDetails.useName": req.query.customerUserName,
+      "customerDetails.id": req.body.customerId,
+      "productDetails.user_id": req.body.adminId,
+      "productDetails.title": req.body.title,
+      "customerDetails.useName": req.body.customerUserName,
     };
     const filterQuery = Object.entries(filter).reduce((acc, [key, value]) => {
       if (value !== undefined) {
@@ -138,10 +138,10 @@ const OrderControllerGetOrder = async (req, res) => {
       return acc;
     }, {});
 
-    if (req.query.search != undefined && req.query.search != "") {
+    if (req.body.search != undefined && req.body.search != "") {
       filterQuery.$or = [
-        { _id: { "$regex": req.query.search, "$options": "i" } },
-        { "productDetails.title": { "$regex": req.query.search, "$options": "i" } },
+        { _id: { "$regex": req.body.search, "$options": "i" } },
+        { "productDetails.title": { "$regex": req.body.search, "$options": "i" } },
       ];
     }
     let TotleCount = await OrderModel.count(filterQuery);

@@ -82,6 +82,7 @@ const ProductControllerDeleteProduct = async (req, res) => {
 };
 
 const ProductControllerGetProduct = async (req, res) => {
+
   let count = req.body.count;
   let activePage = req.body.activePage - 1;
   try {
