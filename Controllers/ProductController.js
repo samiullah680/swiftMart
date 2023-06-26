@@ -129,7 +129,7 @@ const ProductControllerGetProduct = async (req, res) => {
 const ProductControllerGetSingleProduct = async (req, res) => {
   try {
     let singleProduct = await ProdctModel.findOne({
-      _id: req.query.id,
+      _id: req.body.id,
     });
     if (singleProduct) {
       res.status(200).json({
