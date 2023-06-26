@@ -91,29 +91,31 @@ const AuthControllerRegistration = async (req, res) => {
 
 const AuthControllerForgetPassword = async (req, res) => {
   try {
-    let transporter = nodemailer.createTransport({
+    let mailTransporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       service: 'gmail',
       auth: {
-
-        user: "mdsamiullahalam@cedcommerce.com",
-        pass: "manjooR@1212",
-
+        user: 'grouptech61@gmail.com',
+        pass: 'phyziwbovcsvuhym'
       }
     });
-    const message = {
-      from: "mdsamiullahalam@cedcommerce.com",
-      to: "mdsamiullahalam@cedcommerce.com",
-      subject: "Subject ELS Varification df ",
-      html: "<h1>Hello SMTP Emaidfgl</h1>"
-    }
-    transporter.sendMail(message, (err, info) => {
+
+    let mailDetails = {
+      from: 'grouptech61@gmail.com',
+      to: 'grouptech61@gmail.com',
+      subject: 'Test mail',
+      text: 'Node.js testing mail for GeeksforGeeks'
+    };
+
+    mailTransporter.sendMail(mailDetails, function (err, data) {
       if (err) {
-        console.log("error", err)
+        console.log('Error Occurs', err);
       } else {
-        console.log("info", info);
+        console.log('Email sent successfully');
       }
-    }
-    )
+    });
 
 
     res.status(200).json({
