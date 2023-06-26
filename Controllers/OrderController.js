@@ -141,6 +141,7 @@ const OrderControllerGetOrder = async (req, res) => {
     if (req.body.search != undefined && req.body.search != "") {
       filterQuery.$or = [
         { _id: { "$regex": req.body.search, "$options": "i" } },
+        { "orderStatus": { "$regex": req.body.search, "$options": "i" } },
         { "productDetails.title": { "$regex": req.body.search, "$options": "i" } },
       ];
     }
