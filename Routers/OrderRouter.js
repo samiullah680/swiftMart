@@ -10,7 +10,7 @@ const {
 
 Router.route("/createOrder").post(Auth, OrderControllerCreateOrder);
 Router.route("/editOrder").post(Auth, OrderControllerEditOrder);
-Router.route("/deleteProduct").post(Auth, OrderControllerDeleteOrder);
+Router.route("/deleteOrder").post(Auth, OrderControllerDeleteOrder);
 Router.route("/getSingleOrder").post(Auth, OrderControllerGetSingleOrder);
 Router.route("/getOrder").post(Auth, OrderControllerGetOrder);
 module.exports = Router;

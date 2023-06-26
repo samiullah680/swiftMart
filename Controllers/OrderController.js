@@ -97,7 +97,7 @@ const OrderControllerEditOrder = async (req, res) => {
 
 const OrderControllerDeleteOrder = async (req, res) => {
   try {
-    let deleteOrder = await OrderModel.findByIdAndRemove(req.query.id);
+    let deleteOrder = await OrderModel.findByIdAndRemove(req.body.id);
     if (deleteOrder) {
       res.status(200).json({
         success: true,
@@ -140,7 +140,6 @@ const OrderControllerGetOrder = async (req, res) => {
 
     if (req.body.search != undefined && req.body.search != "") {
       filterQuery.$or = [
-        { _id: { "$regex": req.body.search, "$options": "i" } },
         { "orderStatus": { "$regex": req.body.search, "$options": "i" } },
         { "productDetails.title": { "$regex": req.body.search, "$options": "i" } },
       ];

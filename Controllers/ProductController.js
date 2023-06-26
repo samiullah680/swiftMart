@@ -110,6 +110,7 @@ const ProductControllerGetProduct = async (req, res) => {
     const product = await ProdctModel.find(filterQuery)
       .limit(count)
       .skip(count * activePage);
+
     res.status(200).json({
       success: true,
       status: 200,
