@@ -2,10 +2,10 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Auth = require("../Models/AuthModels/AuthModel");
+const nodemailer = require('nodemailer');
 
 const AuthControllerLogin = asyncHandler(async (req, res) => {
   const { credential, password } = req.body;
-  console.log("credentials:", credential, password);
   const user = await Auth.findOne({
     $or: [{ email: credential }, { username: credential }],
   });
@@ -91,8 +91,33 @@ const AuthControllerRegistration = async (req, res) => {
 
 const AuthControllerForgetPassword = async (req, res) => {
   try {
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+
+        user: "mdsamiullahalam@cedcommerce.com",
+        pass: "manjooR@1212",
+
+      }
+    });
+    const message = {
+      from: "mdsamiullahalam@cedcommerce.com",
+      to: "mdsamiullahalam@cedcommerce.com",
+      subject: "Subject ELS Varification df ",
+      html: "<h1>Hello SMTP Emaidfgl</h1>"
+    }
+    transporter.sendMail(message, (err, info) => {
+      if (err) {
+        console.log("error", err)
+      } else {
+        console.log("info", info);
+      }
+    }
+    )
+
+
     res.status(200).json({
-      success: false,
+      success: true,
       status: 200,
       message: "Password Forget link send to email",
     });
@@ -103,6 +128,7 @@ const AuthControllerForgetPassword = async (req, res) => {
       message: err.message,
     });
   }
+
 };
 
 module.exports = {
